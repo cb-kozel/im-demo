@@ -3,7 +3,10 @@ import { Rnd } from 'react-rnd';
 
 interface ResizableElementProps {
   elementId: string;
-  onResizeEnd: (id: string, size: { width: number; height: number }) => void;
+  onResizeEnd: (
+    elementId: string,
+    size: { width: number; height: number }
+  ) => void;
   children: React.ReactNode;
   position: { x: number; y: number };
 }

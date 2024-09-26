@@ -65,16 +65,24 @@ const DashboardScreen: React.FC = () => {
             onTogglePreview={() => setIsPreview(!isPreview)}
           />
         ) : (
-          layout.map((element, index) => (
-            <DraggableElement
-              key={index}
+          layout.map((element) => (
+            <ResizableElement
+              key={element.id}
               elementId={element.id}
-              onDragEnd={handleDragEnd}
+              onResizeEnd={(id, size) => {
+                setLayout((prevLayout) =>
+                  prevLayout.map((el) => (el.id === id ? { ...el, size } : el))
+                );
+              }}
+              position={element.position}
             >
-              <ResizableElement elementId={element.id} onResizeEnd={setLayout}>
-                {/* Render the actual element here */}
-              </ResizableElement>
-            </DraggableElement>
+              <DraggableElement
+                elementId={element.id}
+                onDragEnd={handleDragEnd}
+              >
+                <div className='element-content'>{element.id}</div>
+              </DraggableElement>
+            </ResizableElement>
           ))
         )}
       </main>
